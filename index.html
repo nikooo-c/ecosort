@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>EcoSort — Smart Waste</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -18,13 +25,17 @@
             color: #183c2a;
         }
 
+        /* ================= HEADER ================= */
+
         header {
-            background: #ffffff;
+            background: white;
             padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             border-bottom: 1px solid #e4eee7;
+
             position: sticky;
             top: 0;
             z-index: 10;
@@ -43,12 +54,21 @@
             font-size: 15px;
         }
 
+        nav a:hover {
+            color: #16834a;
+        }
+
+
+        /* ================= HERO ================= */
+
         .hero {
             min-height: 620px;
             padding: 90px 8%;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 50px;
         }
 
@@ -58,18 +78,24 @@
 
         .badge {
             display: inline-block;
+
             background: #dff5e7;
             color: #16834a;
+
             padding: 10px 17px;
+
             border-radius: 30px;
+
             font-weight: bold;
             font-size: 13px;
+
             margin-bottom: 20px;
         }
 
         h1 {
             font-size: 55px;
             line-height: 1.05;
+
             margin-bottom: 20px;
         }
 
@@ -79,33 +105,54 @@
 
         .hero-text p {
             color: #63756c;
+
             font-size: 17px;
             line-height: 1.7;
+
             margin-bottom: 30px;
         }
 
         .button {
             display: inline-block;
+
             background: #16834a;
             color: white;
+
             padding: 15px 25px;
+
             border-radius: 12px;
+
             text-decoration: none;
+
             font-weight: bold;
-            box-shadow: 0 10px 25px rgba(22, 131, 74, 0.25);
+
+            box-shadow:
+                0 10px 25px rgba(22, 131, 74, 0.25);
         }
+
+
+        /* ================= VISUAL ================= */
 
         .visual {
             width: 380px;
             height: 380px;
+
             background: #dff5e7;
+
             border-radius: 50%;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 150px;
-            box-shadow: inset 0 0 0 25px rgba(255,255,255,.5);
+
+            box-shadow:
+                inset 0 0 0 25px rgba(255,255,255,.5);
         }
+
+
+        /* ================= SECTION ================= */
 
         .features {
             background: white;
@@ -126,23 +173,35 @@
             color: #718078;
         }
 
+
+        /* ================= CARDS ================= */
+
         .cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 25px;
         }
 
         .card {
             padding: 30px;
+
             background: #f7faf8;
+
             border: 1px solid #e5eee8;
+
             border-radius: 20px;
+
             transition: .3s;
         }
 
         .card:hover {
             transform: translateY(-7px);
-            box-shadow: 0 15px 35px rgba(25, 70, 45, .10);
+
+            box-shadow:
+                0 15px 35px rgba(25,70,45,.10);
         }
 
         .icon {
@@ -159,17 +218,245 @@
             line-height: 1.6;
         }
 
+
+        /* ================= IDENTIFIKASI ================= */
+
+        .upload-box {
+            max-width: 650px;
+
+            margin: auto;
+
+            text-align: center;
+
+            background: #f7faf8;
+
+            border: 2px dashed #b9d9c5;
+
+            padding: 40px 25px;
+
+            border-radius: 25px;
+        }
+
+        .upload-button {
+            display: inline-block;
+
+            background: #16834a;
+
+            color: white;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .upload-button:hover {
+            background: #126c3d;
+        }
+
+        #wasteImage {
+            display: none;
+        }
+
+        #preview {
+            display: none;
+
+            max-width: 100%;
+            max-height: 350px;
+
+            margin: 25px auto;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.12);
+        }
+
+        .analyze-button {
+            background: #123524;
+
+            color: white;
+
+            border: 0;
+
+            padding: 14px 25px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 10px;
+        }
+
+        .analyze-button:hover {
+            background: #0d281b;
+        }
+
+
+        /* ================= SCANNING ================= */
+
+        #scanner {
+            display: none;
+
+            position: relative;
+
+            width: 100%;
+
+            max-width: 400px;
+
+            height: 260px;
+
+            margin: 25px auto;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            background: #10291d;
+        }
+
+        #scanImage {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: .7;
+        }
+
+        .scan-line {
+            position: absolute;
+
+            left: 0;
+
+            width: 100%;
+            height: 4px;
+
+            background: #39ff88;
+
+            box-shadow:
+                0 0 15px #39ff88,
+                0 0 30px #39ff88;
+
+            animation: scan 1.8s linear infinite;
+        }
+
+        @keyframes scan {
+
+            0% {
+                top: 0;
+            }
+
+            50% {
+                top: 100%;
+            }
+
+            100% {
+                top: 0;
+            }
+
+        }
+
+        .scan-text {
+            position: absolute;
+
+            bottom: 15px;
+
+            left: 0;
+
+            width: 100%;
+
+            text-align: center;
+
+            color: white;
+
+            font-weight: bold;
+
+            text-shadow: 0 0 10px #39ff88;
+        }
+
+
+        /* ================= HASIL ================= */
+
+        #result {
+            margin-top: 30px;
+        }
+
+        .result-card {
+            max-width: 600px;
+
+            margin: auto;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            border: 1px solid #dcebe1;
+
+            box-shadow:
+                0 10px 30px rgba(25,70,45,.08);
+
+            text-align: left;
+        }
+
+        .result-card h3 {
+            color: #16834a;
+
+            margin-bottom: 15px;
+        }
+
+        .result-card p {
+            margin: 10px 0;
+
+            line-height: 1.6;
+        }
+
+        .category {
+            display: inline-block;
+
+            background: #dff5e7;
+
+            color: #16834a;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* ================= FOOTER ================= */
+
         footer {
             text-align: center;
+
             padding: 30px;
+
             background: #123524;
+
             color: #cfe1d6;
         }
 
+
+        /* ================= MOBILE ================= */
+
         @media (max-width: 800px) {
+
             .hero {
                 flex-direction: column;
+
                 text-align: center;
+
                 padding-top: 60px;
             }
 
@@ -180,6 +467,7 @@
             .visual {
                 width: 280px;
                 height: 280px;
+
                 font-size: 100px;
             }
 
@@ -190,68 +478,50 @@
             nav {
                 display: none;
             }
+
         }
+
     </style>
+
 </head>
 
-    <section class="features" id="identifikasi">
-
-    <div class="section-title">
-        <h2>📸 Identifikasi Sampah</h2>
-        <p>Upload foto sampah untuk melihat informasi pengelolaannya.</p>
-    </div>
-
-    <div style="max-width:600px;margin:auto;text-align:center;">
-
-        <label for="wasteImage"
-            style="display:inline-block;background:#16834a;color:white;
-            padding:14px 24px;border-radius:12px;cursor:pointer;font-weight:bold;">
-            📷 Pilih Foto Sampah
-        </label>
-
-        <input
-            type="file"
-            id="wasteImage"
-            accept="image/*"
-            onchange="previewImage(event)"
-            style="display:none;"
-        >
-
-        <img
-            id="preview"
-            style="display:none;max-width:100%;max-height:350px;
-            margin:25px auto;border-radius:18px;"
-        >
-
-        <button
-            onclick="analyzeWaste()"
-            style="background:#123524;color:white;border:0;
-            padding:14px 25px;border-radius:12px;
-            font-weight:bold;cursor:pointer;">
-            🔍 Analisis Sampah
-        </button>
-
-        <div id="result"
-            style="margin-top:25px;">
-        </div>
-
-    </div>
-
-</section>
-
-<script src="script.js"></script>
 
 <body>
 
+
+<!-- ================= HEADER ================= -->
+
 <header>
-    <div class="logo">♻️ EcoSort</div>
+
+    <div class="logo">
+        ♻️ EcoSort
+    </div>
 
     <nav>
-        <a href="#home">Beranda</a>
-        <a href="#fitur">Fitur</a>
-        <a href="#tentang">Tentang</a>
+
+        <a href="#home">
+            Beranda
+        </a>
+
+        <a href="#fitur">
+            Fitur
+        </a>
+
+        <a href="#identifikasi">
+            Identifikasi
+        </a>
+
+        <a href="#tentang">
+            Tentang
+        </a>
+
     </nav>
+
 </header>
+
+
+
+<!-- ================= HERO ================= -->
 
 <section class="hero" id="home">
 
@@ -272,11 +542,12 @@
             kebiasaan membuang sampah dengan lebih bijak.
         </p>
 
-        <a href="#fitur" class="button">
+        <a href="#identifikasi" class="button">
             Mulai Sekarang →
         </a>
 
     </div>
+
 
     <div class="visual">
         ♻️
@@ -284,75 +555,440 @@
 
 </section>
 
+
+
+<!-- ================= FITUR ================= -->
+
 <section class="features" id="fitur">
 
     <div class="section-title">
-        <h2>🌍 Apa yang Bisa Kamu Lakukan?</h2>
+
+        <h2>
+            🌍 Apa yang Bisa Kamu Lakukan?
+        </h2>
 
         <p>
             Satu langkah kecil untuk lingkungan yang lebih baik.
         </p>
+
     </div>
+
 
     <div class="cards">
 
-        <div class="card">
-            <div class="icon">📸</div>
 
-            <h3>Identifikasi Sampah</h3>
+        <div class="card">
+
+            <div class="icon">
+                📸
+            </div>
+
+            <h3>
+                Identifikasi Sampah
+            </h3>
 
             <p>
-                Kenali jenis sampah dan tentukan
-                kategori pembuangan yang tepat.
+                Upload foto sampah dan lihat
+                informasi mengenai jenis serta
+                pengelolaannya.
             </p>
+
         </div>
 
-        <div class="card">
-            <div class="icon">♻️</div>
 
-            <h3>Panduan Pengolahan</h3>
+
+        <div class="card">
+
+            <div class="icon">
+                ♻️
+            </div>
+
+            <h3>
+                Panduan Pengolahan
+            </h3>
 
             <p>
                 Pelajari bagaimana sampah dapat
                 digunakan kembali, didaur ulang,
                 atau dibuang dengan benar.
             </p>
+
         </div>
 
-        <div class="card">
-            <div class="icon">📊</div>
 
-            <h3>Statistik Sampah</h3>
+
+        <div class="card">
+
+            <div class="icon">
+                📊
+            </div>
+
+            <h3>
+                Statistik Sampah
+            </h3>
 
             <p>
                 Catat sampah yang kamu temukan
                 dan lihat perkembangan kepedulian
                 terhadap lingkungan.
             </p>
+
         </div>
+
 
     </div>
 
 </section>
 
+
+
+<!-- ================= IDENTIFIKASI ================= -->
+
+<section class="features" id="identifikasi">
+
+    <div class="section-title">
+
+        <h2>
+            📸 Identifikasi Sampah
+        </h2>
+
+        <p>
+            Upload foto sampah untuk melihat informasi pengelolaannya.
+        </p>
+
+    </div>
+
+
+
+    <div class="upload-box">
+
+        <!-- INPUT FOTO -->
+
+        <label
+            for="wasteImage"
+            class="upload-button">
+
+            📷 Pilih Foto Sampah
+
+        </label>
+
+
+        <input
+            type="file"
+            id="wasteImage"
+            accept="image/*"
+            onchange="previewImage(event)"
+        >
+
+
+
+        <!-- PREVIEW FOTO -->
+
+        <img
+            id="preview"
+            alt="Preview sampah"
+        >
+
+
+
+        <!-- TOMBOL ANALISIS -->
+
+        <button
+            class="analyze-button"
+            onclick="analyzeWaste()">
+
+            🔍 Analisis Sampah
+
+        </button>
+
+
+
+        <!-- AREA SCANNING -->
+
+        <div id="scanner">
+
+            <img
+                id="scanImage"
+                alt="Scanning"
+            >
+
+            <div class="scan-line"></div>
+
+            <div class="scan-text">
+                🔎 Sedang menganalisis sampah...
+            </div>
+
+        </div>
+
+
+
+        <!-- HASIL -->
+
+        <div id="result"></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= TENTANG ================= -->
+
 <section class="features" id="tentang">
 
     <div class="section-title">
 
-        <h2>🌱 Tentang EcoSort</h2>
+        <h2>
+            🌱 Tentang EcoSort
+        </h2>
 
         <p>
             EcoSort dibuat untuk membantu masyarakat
-            memahami pentingnya memilah sampah sejak dari sumbernya.
+            memahami pentingnya memilah sampah sejak
+            dari sumbernya.
         </p>
 
     </div>
 
 </section>
 
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
+
     © 2026 EcoSort — Small Actions, Big Impact 🌍
+
 </footer>
 
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    let selectedFile = null;
+
+
+    /* ==========================================
+       PILIH FOTO
+    ========================================== */
+
+    function previewImage(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        selectedFile = file;
+
+        const image = document.getElementById("preview");
+
+        const scanner = document.getElementById("scanner");
+
+        const result = document.getElementById("result");
+
+        const scanImage = document.getElementById("scanImage");
+
+
+        const imageURL = URL.createObjectURL(file);
+
+
+        image.src = imageURL;
+
+        image.style.display = "block";
+
+
+        scanner.style.display = "none";
+
+        result.innerHTML = "";
+
+        scanImage.src = imageURL;
+
+    }
+
+
+
+    /* ==========================================
+       ANALISIS SAMPAH
+    ========================================== */
+
+    function analyzeWaste() {
+
+        if (!selectedFile) {
+
+            alert("Silakan pilih foto sampah terlebih dahulu.");
+
+            return;
+
+        }
+
+
+        const preview =
+            document.getElementById("preview");
+
+        const scanner =
+            document.getElementById("scanner");
+
+        const result =
+            document.getElementById("result");
+
+
+        /* sembunyikan preview */
+
+        preview.style.display = "none";
+
+
+        /* tampilkan scanner */
+
+        scanner.style.display = "block";
+
+
+        /* kosongkan hasil */
+
+        result.innerHTML = "";
+
+
+        /*
+        Simulasi proses AI.
+        Nanti bagian ini bisa kita sambungkan
+        ke AI sungguhan.
+        */
+
+        setTimeout(function () {
+
+            scanner.style.display = "none";
+
+
+            /*
+            Untuk sementara hasil dibuat
+            berdasarkan nama file.
+
+            Nanti kita bisa ganti dengan
+            AI image recognition sungguhan.
+            */
+
+            const fileName =
+                selectedFile.name.toLowerCase();
+
+
+            let jenis = "Sampah Umum";
+
+            let kategori = "Residu";
+
+            let saran =
+                "Pisahkan sampah ini dari sampah yang dapat didaur ulang dan buang pada tempat sampah yang sesuai.";
+
+
+
+            if (
+                fileName.includes("botol") ||
+                fileName.includes("plastik")
+            ) {
+
+                jenis = "Sampah Plastik";
+
+                kategori = "Anorganik";
+
+                saran =
+                    "Pisahkan botol dari tutupnya jika memungkinkan, bersihkan, lalu masukkan ke tempat sampah anorganik atau bank sampah.";
+
+            }
+
+
+
+            else if (
+                fileName.includes("kertas") ||
+                fileName.includes("paper")
+            ) {
+
+                jenis = "Sampah Kertas";
+
+                kategori = "Dapat Didaur Ulang";
+
+                saran =
+                    "Pastikan kertas tidak terkena minyak atau cairan berlebihan. Kumpulkan untuk didaur ulang.";
+
+            }
+
+
+
+            else if (
+                fileName.includes("daun") ||
+                fileName.includes("organik")
+            ) {
+
+                jenis = "Sampah Organik";
+
+                kategori = "Organik";
+
+                saran =
+                    "Sampah organik dapat dipisahkan untuk dijadikan kompos.";
+
+            }
+
+
+
+            else if (
+                fileName.includes("kaleng") ||
+                fileName.includes("aluminium")
+            ) {
+
+                jenis = "Sampah Logam";
+
+                kategori = "Anorganik";
+
+                saran =
+                    "Bersihkan kaleng lalu pisahkan untuk dikumpulkan atau didaur ulang.";
+
+            }
+
+
+
+            /* tampilkan hasil */
+
+            result.innerHTML = `
+
+                <div class="result-card">
+
+                    <div class="category">
+                        ♻️ ${kategori}
+                    </div>
+
+                    <h3>
+                        Hasil Analisis
+                    </h3>
+
+                    <p>
+                        <strong>Jenis Sampah:</strong>
+                        ${jenis}
+                    </p>
+
+                    <p>
+                        <strong>Pengelolaan:</strong>
+                        ${saran}
+                    </p>
+
+                    <p>
+                        🌱
+                        Terima kasih sudah ikut menjaga
+                        lingkungan!
+                    </p>
+
+                </div>
+
+            `;
+
+        }, 3000);
+
+    }
+
+</script>
+
+
 </body>
+
 </html>
