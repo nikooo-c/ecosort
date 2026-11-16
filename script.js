@@ -1,120 +1,287 @@
+let selectedImage = null;
+let cameraStream = null;
+
+
+// ==========================================
+// PREVIEW FOTO
+// ==========================================
+
 function previewImage(event) {
 
     const file = event.target.files[0];
 
-    if (!file) {
-        return;
-    }
+    if (!file) return;
 
-    const preview = document.getElementById("preview");
-    const analyzeButton = document.getElementById("analyzeButton");
-    const result = document.getElementById("result");
+    selectedImage = file;
 
-    const imageURL = URL.createObjectURL(file);
+    const reader = new FileReader();
 
-    preview.src = imageURL;
-    preview.style.display = "block";
+    reader.onload = function(e) {
 
-    analyzeButton.style.display = "block";
+        const preview = document.getElementById("preview");
 
-    result.innerHTML = "";
+        preview.src = e.target.result;
+
+        document.getElementById("previewContainer")
+            .classList.add("show");
+
+        document.getElementById("uploadBox")
+            .style.display = "none";
+
+        document.getElementById("scanner")
+            .classList.remove("show");
+
+        document.getElementById("result")
+            .classList.remove("show");
+
+    };
+
+    reader.readAsDataURL(file);
 }
 
 
-function analyzeWaste() {
+// ==========================================
+// BUKA KAMERA
+// ==========================================
 
-    const fileInput = document.getElementById("wasteImage");
-    const result = document.getElementById("result");
+async function openCamera() {
 
-    if (!fileInput.files || fileInput.files.length === 0) {
+    const cameraContainer =
+        document.getElementById("cameraContainer");
 
-        result.innerHTML = `
-            <div class="result-card">
-                <h3>⚠️ Foto belum dipilih</h3>
-                <p>
-                    Silakan pilih foto sampah terlebih dahulu.
-                </p>
-            </div>
-        `;
+    try {
+
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "environment"
+                },
+                audio: false
+            });
+
+        const video =
+            document.getElementById("cameraVideo");
+
+        video.srcObject = cameraStream;
+
+        cameraContainer.classList.add("show");
+
+        document.getElementById("uploadBox")
+            .style.display = "none";
+
+    } catch (error) {
+
+        alert(
+            "Kamera tidak dapat digunakan. Pastikan browser memiliki izin kamera."
+        );
+
+    }
+}
+
+
+// ==========================================
+// TUTUP KAMERA
+// ==========================================
+
+function closeCamera() {
+
+    if (cameraStream) {
+
+        cameraStream.getTracks().forEach(track => {
+            track.stop();
+        });
+
+        cameraStream = null;
+    }
+
+    document.getElementById("cameraContainer")
+        .classList.remove("show");
+
+    document.getElementById("uploadBox")
+        .style.display = "block";
+}
+
+
+// ==========================================
+// AMBIL FOTO DARI KAMERA
+// ==========================================
+
+function takePhoto() {
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    const canvas =
+        document.getElementById("cameraCanvas");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const context =
+        canvas.getContext("2d");
+
+    context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    canvas.toBlob(function(blob) {
+
+        selectedImage = blob;
+
+        const imageURL =
+            URL.createObjectURL(blob);
+
+        document.getElementById("preview")
+            .src = imageURL;
+
+        document.getElementById("cameraContainer")
+            .classList.remove("show");
+
+        document.getElementById("previewContainer")
+            .classList.add("show");
+
+        document.getElementById("uploadBox")
+            .style.display = "none";
+
+        closeCamera();
+
+    }, "image/jpeg", 0.9);
+}
+
+
+// ==========================================
+// MULAI ANALISIS
+// ==========================================
+
+function startAnalysis() {
+
+    if (!selectedImage) {
+
+        alert("Silakan pilih foto terlebih dahulu.");
 
         return;
     }
 
 
-    const fileName = fileInput.files[0].name.toLowerCase();
+    const preview =
+        document.getElementById("preview");
 
-    let jenis = "Sampah Umum";
-    let saran = "Pisahkan sampah dan buang pada tempat yang sesuai.";
+    const scanImage =
+        document.getElementById("scanImage");
 
-
-    // Identifikasi sederhana berdasarkan nama file
-    if (
-        fileName.includes("botol") ||
-        fileName.includes("plastik")
-    ) {
-
-        jenis = "♻️ Sampah Plastik";
-
-        saran =
-            "Pisahkan dari sampah organik. Botol atau kemasan plastik yang masih layak dapat digunakan kembali atau disalurkan ke tempat daur ulang.";
-
-    }
-
-    else if (
-        fileName.includes("kertas") ||
-        fileName.includes("karton")
-    ) {
-
-        jenis = "📄 Sampah Kertas";
-
-        saran =
-            "Pastikan kertas dalam kondisi relatif kering dan bersih. Kertas dapat dikumpulkan untuk didaur ulang.";
-
-    }
-
-    else if (
-        fileName.includes("daun") ||
-        fileName.includes("makanan") ||
-        fileName.includes("organik")
-    ) {
-
-        jenis = "🌱 Sampah Organik";
-
-        saran =
-            "Sampah organik dapat dipisahkan dan dimanfaatkan untuk kompos.";
-
-    }
-
-    else if (
-        fileName.includes("kaleng") ||
-        fileName.includes("besi")
-    ) {
-
-        jenis = "🥫 Sampah Logam";
-
-        saran =
-            "Pisahkan dari sampah lainnya dan kumpulkan untuk digunakan kembali atau didaur ulang.";
-
-    }
+    scanImage.src = preview.src;
 
 
-    result.innerHTML = `
-        <div class="result-card">
+    // sembunyikan preview
 
-            <h3>
-                ${jenis}
-            </h3>
+    document.getElementById("previewContainer")
+        .classList.remove("show");
 
-            <p>
-                <strong>Nama file:</strong>
-                ${fileInput.files[0].name}
-            </p>
 
-            <p>
-                <strong>Saran pengelolaan:</strong><br>
-                ${saran}
-            </p>
+    // tampilkan scanner
 
-        </div>
-    `;
+    document.getElementById("scanner")
+        .classList.add("show");
+
+
+    // scroll ke scanner
+
+    document.getElementById("scanner")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+
+    // simulasi proses AI
+
+    setTimeout(function() {
+
+        showResult();
+
+    }, 3000);
+}
+
+
+// ==========================================
+// HASIL ANALISIS
+// ==========================================
+
+function showResult() {
+
+    document.getElementById("scanner")
+        .classList.remove("show");
+
+    document.getElementById("result")
+        .classList.add("show");
+
+
+    // hasil contoh botol plastik
+
+    document.getElementById("wasteName")
+        .textContent = "Botol Plastik";
+
+    document.getElementById("wasteCategory")
+        .textContent = "Anorganik";
+
+    document.getElementById("confidenceValue")
+        .textContent = "96%";
+
+
+    document.getElementById("ecoTip")
+        .textContent =
+        "Bersihkan botol sebelum digunakan kembali. Jika masih layak, gunakan kembali atau pisahkan untuk didaur ulang.";
+
+
+    // scroll ke hasil
+
+    setTimeout(function() {
+
+        document.getElementById("result")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+    }, 200);
+
+}
+
+
+// ==========================================
+// RESET
+// ==========================================
+
+function resetScanner() {
+
+    selectedImage = null;
+
+
+    document.getElementById("result")
+        .classList.remove("show");
+
+    document.getElementById("previewContainer")
+        .classList.remove("show");
+
+    document.getElementById("scanner")
+        .classList.remove("show");
+
+    document.getElementById("uploadBox")
+        .style.display = "block";
+
+
+    document.getElementById("wasteImage")
+        .value = "";
+
+
+    window.scrollTo({
+        top: document.getElementById("scanner")
+            .offsetTop - 80,
+        behavior: "smooth"
+    });
+
 }
