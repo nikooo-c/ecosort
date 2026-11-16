@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSort — Smart Waste</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f5;
+            color: #183c2a;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e4eee7;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #16834a;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #365447;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        .hero {
+            min-height: 620px;
+            padding: 90px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-text {
+            max-width: 570px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dff5e7;
+            color: #16834a;
+            padding: 10px 17px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 55px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #16834a;
+        }
+
+        .hero-text p {
+            color: #63756c;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #16834a;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(22, 131, 74, 0.25);
+        }
+
+        .visual {
+            width: 380px;
+            height: 380px;
+            background: #dff5e7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 150px;
+            box-shadow: inset 0 0 0 25px rgba(255,255,255,.5);
+        }
+
+        .features {
+            background: white;
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #718078;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            padding: 30px;
+            background: #f7faf8;
+            border: 1px solid #e5eee8;
+            border-radius: 20px;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(25, 70, 45, .10);
+        }
+
+        .icon {
+            font-size: 38px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #718078;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #123524;
+            color: #cfe1d6;
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 60px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .visual {
+                width: 280px;
+                height: 280px;
+                font-size: 100px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">♻️ EcoSort</div>
+
+    <nav>
+        <a href="#home">Beranda</a>
+        <a href="#fitur">Fitur</a>
+        <a href="#tentang">Tentang</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+
+    <div class="hero-text">
+
+        <div class="badge">
+            🌱 SMART WASTE PROJECT
+        </div>
+
+        <h1>
+            Kenali Sampah.<br>
+            <span>Jaga Bumi.</span>
+        </h1>
+
+        <p>
+            EcoSort membantu kamu mengenali jenis sampah,
+            memahami cara pengelolaannya, dan membangun
+            kebiasaan membuang sampah dengan lebih bijak.
+        </p>
+
+        <a href="#fitur" class="button">
+            Mulai Sekarang →
+        </a>
+
+    </div>
+
+    <div class="visual">
+        ♻️
+    </div>
+
+</section>
+
+<section class="features" id="fitur">
+
+    <div class="section-title">
+        <h2>🌍 Apa yang Bisa Kamu Lakukan?</h2>
+
+        <p>
+            Satu langkah kecil untuk lingkungan yang lebih baik.
+        </p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">📸</div>
+
+            <h3>Identifikasi Sampah</h3>
+
+            <p>
+                Kenali jenis sampah dan tentukan
+                kategori pembuangan yang tepat.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">♻️</div>
+
+            <h3>Panduan Pengolahan</h3>
+
+            <p>
+                Pelajari bagaimana sampah dapat
+                digunakan kembali, didaur ulang,
+                atau dibuang dengan benar.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📊</div>
+
+            <h3>Statistik Sampah</h3>
+
+            <p>
+                Catat sampah yang kamu temukan
+                dan lihat perkembangan kepedulian
+                terhadap lingkungan.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="features" id="tentang">
+
+    <div class="section-title">
+
+        <h2>🌱 Tentang EcoSort</h2>
+
+        <p>
+            EcoSort dibuat untuk membantu masyarakat
+            memahami pentingnya memilah sampah sejak dari sumbernya.
+        </p>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 EcoSort — Small Actions, Big Impact 🌍
+</footer>
+
+</body>
+</html>
